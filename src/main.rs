@@ -1,8 +1,14 @@
-mod lib;
+#[macro_use]
+extern crate diesel;
+extern crate dotenv;
 
 use actix_web::{web, App, HttpServer};
 use uuid::Uuid;
-use crate::lib;
+
+mod route;
+mod models;
+mod schema;
+mod sql;
 
 fn type_of<T>(_: T) -> String {
     std::any::type_name::<T>().to_string()
@@ -10,7 +16,7 @@ fn type_of<T>(_: T) -> String {
 
 #[actix_rt::main]
 async fn main() -> std::io::Result<()> {
-    let connection = establish_connection(
+    let connection = sql::establish_connection(
         "mysql://penta:kenya2318@localhost/lupus");
 
     HttpServer::new(|| {

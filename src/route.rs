@@ -1,5 +1,4 @@
 use actix_web::{HttpResponse, Responder};
-use crate::backend;
 
 pub async fn index() -> impl Responder {
     HttpResponse::Ok().body("Hello world!")
