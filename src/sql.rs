@@ -40,12 +40,13 @@ pub fn create_user<'a>(connection: &MysqlConnection, _id: &'a str, _username: &'
     }
 }
 
-pub fn show_users(connection: &MysqlConnection, limit: i64) -> Result<Vec<User>, diesel::result::Error> {
+pub fn show_users(connection: &MysqlConnection, limit: Option<i64>) -> Result<Vec<User>, diesel::result::Error> {
     use crate::schema::user::dsl::*;
 
-    let results = user
-        .limit(limit)
-        .load::<User>(connection);
+    let results = match limit {
+        Some(v) => user.limit(v).load::<User>(connection),
+        None => user.load::<User>(connection)
+    };
     
     match results {
         Ok(v) => Ok(v),

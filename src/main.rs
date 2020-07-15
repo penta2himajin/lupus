@@ -23,7 +23,7 @@ async fn main() -> std::io::Result<()> {
         "penta2himajin",
         &false,
     ).unwrap(); */
-    let users = sql::show_users(&conn, 5).unwrap();
+    let users = sql::show_users(&conn, None).unwrap();
     for user in users {
         println!("{}", user.username);
     }
