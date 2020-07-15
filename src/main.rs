@@ -1,11 +1,8 @@
+mod lib;
+
 use actix_web::{web, App, HttpServer};
 use uuid::Uuid;
-use crate::sql::establish_connection;
-
-mod route;
-mod backend;
-mod models;
-mod sql;
+use crate::lib;
 
 fn type_of<T>(_: T) -> String {
     std::any::type_name::<T>().to_string()
@@ -13,7 +10,8 @@ fn type_of<T>(_: T) -> String {
 
 #[actix_rt::main]
 async fn main() -> std::io::Result<()> {
-    let connection = establish_connection();
+    let connection = establish_connection(
+        "mysql://penta:kenya2318@localhost/lupus");
 
     HttpServer::new(|| {
         App::new()
