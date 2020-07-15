@@ -5,5 +5,5 @@ CREATE TABLE user (
   serverside_processing BOOLEAN NOT NULL,
   last_login_time TIMESTAMP NOT NULL,
   session_data CHAR(36),
-  session_expiration TIMESTAMP
+  session_expiration TIMESTAMP NULL
 )

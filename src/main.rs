@@ -16,8 +16,17 @@ fn type_of<T>(_: T) -> String {
 
 #[actix_rt::main]
 async fn main() -> std::io::Result<()> {
-    let connection = sql::establish_connection(
-        "mysql://penta:kenya2318@localhost/lupus");
+    let conn = sql::establish_connection();
+    /* sql::create_user(
+        &conn,
+        "550e8400-e29b-41d4-a716-446655440000",
+        "penta2himajin",
+        &false,
+    ).unwrap(); */
+    let users = sql::show_users(&conn, 5).unwrap();
+    for user in users {
+        println!("{}", user.username);
+    }
 
     HttpServer::new(|| {
         App::new()
